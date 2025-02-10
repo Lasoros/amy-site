@@ -31,10 +31,15 @@ body {
 }
 
 h2 {
-  font-size: 3.2em;
+  font-size: auto;
   line-height: 1.1;
   color: #74605a;
 }
+
+h3 {
+  font-size: 1.5rem;
+}
+
 
 button {
   border-radius: 8px;

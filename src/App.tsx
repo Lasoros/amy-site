@@ -1,7 +1,10 @@
 
-import { Box, Button, Container, Heading, Image, Text, VStack, Grid, Input, Textarea, Card, Badge, HStack, SimpleGrid, DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger, MenuContent, MenuItem, MenuRoot, MenuTrigger, MenuItemGroup, MenuSeparator, MenuTriggerItem, Flex, Tabs, Avatar } from "@chakra-ui/react";
+import { Box, Button, Container, Heading, Image, Text, VStack, Grid, Input, Textarea, Card, Badge, HStack, SimpleGrid, DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger, Flex, Tabs, Avatar, Icon, AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, Separator } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import Tab from "./Tab";
+import { FaBabyCarriage } from "react-icons/fa";
+import { GiGraduateCap, GiEngagementRing } from "react-icons/gi";
+import { LuTrophy } from "react-icons/lu";
+import { MdOutlineFamilyRestroom, MdPregnantWoman } from "react-icons/md";
 
 const images = [
  "https://images-pw.pixieset.com/elementfield/pZd8Z4O/IMG_0069-Enhanced-NR-2-7efb25dc-1000.jpg",
@@ -62,13 +65,46 @@ const gallerySenior = [
   "https://images-pw.pixieset.com/elementfield/G5465mx/IMG_9964-Enhanced-NR-976247d5-1000.jpg",
   ];
 
+  const prices = [
+    {
+      name: "Maternity From - $300",
+      bio: "Document the joy of expecting. Pricing starts out at $300 for an outdoor photoshoot in the Dayton area.",
+      image: "https://images-pw.pixieset.com/elementfield/G5465mx/IMG_2459-9414ab67-1000.jpg",
+      topRated: false,
+    },
+    {
+      name: "Family",
+      bio: "As our elders say, time passes by in an instant. One minute you're baby is fresh and new and the next you have a wild, sticky toddler. Preserve those memories today",
+      image: "https://i.pravatar.cc/150?u=b",
+      topRated: true,
+    },
+    {
+      name: "NB + Baby",
+      bio: "Congratulations on welcoming your new baby to the world! Newborns change daily so don't let those memories fade away. Their little wrinkled feet and hands, the little button noses. That sweet, sweet baby smell. Indoor studio sessions are available.",
+      image: "https://images-pw.pixieset.com/elementfield/G5465mx/IMG_4744-Enhanced-NR-531c6717-1000.jpg",
+      topRated: false,
+    },
+    {
+      name: "Extended Family",
+      bio: "Getting extended family pictures is a wonderful way to capture and celebrate the bonds that tie your family together. These photos serve as a lasting reminder of shared moments and milestones, preserving the connections between generations.",
+      image: "https://images-pw.pixieset.com/elementfield/G5465mx/IMG_0181-Enhanced-NR-6a6bfbf2-1000.jpg",
+      topRated: false,
+    },
+    {
+      name: "Seniors",
+      bio: "Senior pictures are a wonderful way to capture a significant milestone in your life. They not only celebrate your achievements, but your style, individuality, and who you are as a person. Includes two locations",
+      image: "https://images-pw.pixieset.com/elementfield/G5465mx/IMG_0015-Enhanced-NR-c4108336-1000.jpg",
+      topRated: false,
+    },
+  ]
+
 const items = [
   {
     title: "About Me",
     content:"I believe that every moment tells a unique story. Our passion is capturing the beauty, emotion, and essence of life through the lens, creating timeless images that you will cherish forever. Whether you’re looking for lifestyle maternity and newborns portraits, captivating senior photos, or candid snapshots of your wild and crazy toddler, we bring creativity and technical skill to every shot. Explore our gallery to see a diverse collection of our work!",
   },
   {
-    title: "WHy Hire A Photographer?",
+    title: "Why Hire A Photographer?",
     content:
       "Hiring a family photographer ensures that you capture high-quality, professional images of your loved ones during special moments and milestones. With their expertise in lighting, composition, and editing, they create beautiful photos that you can cherish for years to come. A family photographer takes the stress out of organizing the shoot and brings a creative touch to make your memories truly special. It’s a wonderful way to preserve and celebrate the unique dynamics and joys of your family",
   },
@@ -93,11 +129,11 @@ const App = () => {
   return (
     <Box id="hero-section">
       {/* Hero Section */}
-      <Box position="relative" height="100vh" width="100vw" overflow="hidden" display="flex" alignItems="center" justifyContent="center" transition={'ease-in-out'}>
+      <Box position="relative" height="100vh" width="100vw" overflow="hidden" display="flex" alignItems="center" justifyContent="center">
         <Image src={images[index]} alt="Hero Image" objectFit="cover" width="100%" height="100%" position="absolute" />
         <Container position="relative" fontFamily={'Fraunces'} centerContent>
           <VStack spaceX={6} textAlign="center" >
-            <Heading size="2xl" fontFamily={'Fraunces'}  >AMY CURLEY PHOTOGRAPHY</Heading> {/*bg={'#fdfaf1'} borderRadius={15} padding={15} */}
+            <Heading fontWeight={"bold"} size="2xl" fontSize={'2.4rem'} fontFamily={'Fraunces'} zIndex={1} >AMY CURLEY PHOTOGRAPHY</Heading> {/*bg={'#fdfaf1'} borderRadius={15} padding={15} */}
             <Text fontSize="lg" >Capturing love stories reminds me that every moment, big or small, has is own beauty.</Text> {/*bg={'#fdfaf1'} borderRadius={5} padding={2} */}
             
             <DialogRoot>
@@ -121,14 +157,14 @@ const App = () => {
                 <DialogBody >
                   <Flex minH="auto">
                     <Tabs.Root defaultValue="About Me" width="full">
-                      <Tabs.List>
+                      <Tabs.List >
                         {items.map((item, index) => (
                           <Tabs.Trigger key={index} value={item.title}>
                               {item.title}
                           </Tabs.Trigger>
                         ))}
                       </Tabs.List>
-                      <Box pos="relative" minH="200px" width="full">
+                      <Box pos="relative" minH="200px" width="full" flex={'wrap'}>
                         {items.map((item, index) => (
                           <Tabs.Content
                             key={index}
@@ -164,17 +200,20 @@ const App = () => {
           </VStack>
         </Container>
       </Box>
+
       
       {/* Gallery Section */}
-      <Container maxW="container.lg" py={10} id="gallery">
+      <Container width={'100vw'} py={10} id="gallery">
+      <Separator size="lg" variant={"solid"} colorPalette={"gray"}/>
         <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={6} alignItems={"center"} margin={15}>
 
-          <Button variant="subtle"><a href="#gallery">Maternity</a></Button>
-          <Button variant="subtle"><a href="#Family">Family</a></Button>
-          <Button variant="subtle"><a href="#NewBorn">Newborn</a></Button>
-          <Button variant="subtle"><a href="#Senior">Seniors</a></Button>
-          <Button variant="subtle"><a href="#Engagement">Engagement</a></Button>
+          <Button variant="subtle"><Icon><MdOutlineFamilyRestroom /></Icon><a href="#Family">Family</a></Button>
+          <Button variant="subtle"><Icon><FaBabyCarriage /></Icon><a href="#NewBorn">Newborn</a></Button>
+          <Button variant="subtle"><Icon><GiGraduateCap /></Icon><a href="#Senior">Seniors</a></Button>
+          <Button variant="subtle"><Icon><GiEngagementRing /></Icon><a href="#Engagement">Engagement</a></Button>
+          <Button variant="subtle"><Icon><MdPregnantWoman /></Icon><a href="#Pregnancy">Maternity</a></Button>
           {/* <Button variant="subtle"><a href="#gallery">Extended Family</a></Button>
+          <Button variant="subtle"><a href="#gallery">Maternity</a></Button>
           <Button variant="subtle"><a href="#gallery">Fresh 48</a></Button>
           <Button variant="subtle"><a href="#gallery">Milestones</a></Button> */}
 
@@ -268,7 +307,7 @@ const App = () => {
           ))}
         </Grid>
 
-        <Heading textAlign="center" mb={6} fontFamily={'Fraunces'} margin={45} id="Pregnancy">Pregnancy</Heading>
+        <Heading textAlign="center" mb={6} fontFamily={'Fraunces'} margin={45} id="Pregnancy">Maternity</Heading>
         <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={6} alignItems={"center"}>
           {galleryPreg.map((src, index) => (
             <Image key={index} src={src} alt={`Gallery Image ${index + 1}`} borderRadius="md" />
@@ -292,34 +331,117 @@ const App = () => {
         </VStack>
       </Box>
 
+      <HStack justifyContent={"center"} >
+        <SimpleGrid column={{ base: 1, md: 1, lg: 3 }} gap={8} >
+      
+          <AccordionRoot collapsible defaultValue={["b"]}>
+            {prices.map((item, index) => (
+          <AccordionItem key={index} value={item.name}>
+            <AccordionItemTrigger>
+            <Avatar.Root shape="rounded">
+                <Avatar.Fallback name={item.name} />
+                <Avatar.Image src={item.image}  />
+              </Avatar.Root>
+              <HStack>
+                {item.name}{" "}
+                {item.topRated && (
+                  <Badge colorPalette="green">
+                    <LuTrophy />
+                    Top Rated
+                  </Badge>
+                )}
+              </HStack>
+                </AccordionItemTrigger>
+                <AccordionItemContent>{item.bio}</AccordionItemContent>
+              </AccordionItem>
+            ))}
+          </AccordionRoot>
+           
+        </SimpleGrid>
+      </HStack>
+
 
       <HStack justifyContent={"center"}>
         <SimpleGrid columns={{ base: 1, md: 1, lg: 3 }} gap={8} >
+
+
+          
           <Box>
             <Card.Root flexDirection="row" overflow={{ base: "scroll", sm: "hidden" }} maxW="xl" fontFamily={'Fraunces'}>
               <Image
                 objectFit="cover"
                 maxW="200px"
-                src="https://photos.batcars.com/images/garden.jpg"
-                alt="The Garden Package"
+                src="https://images-pw.pixieset.com/elementfield/G5465mx/IMG_9482-Enhanced-NR-36459dd5-1000.jpg"
+                alt="Senior Photo Package"
               />
               <Box>
                 <Card.Body>
-                  <Card.Title mb="2">The Garden</Card.Title>
+                  <Card.Title mb="2">Seniors</Card.Title>
                   <Card.Description>
-                    4 Hours Coverage <br />
-                    All RAW Images <br />
-                    Edited Gallery <br />
-                    Highlight Video <br />
-                    One Photographer
+                  Senior pictures are a wonderful way to capture a significant milestone in your life. They not only celebrate your achievements, but your style, individuality, and who you are as a person. Includes two locations
                   </Card.Description>
                   <HStack mt="4">
+                    <Badge>From $350</Badge>
                     <Badge>You Wont Even Notice Us</Badge>
                     <Badge>Value</Badge>
                   </HStack>
                 </Card.Body>
                 <Card.Footer>
-                  <Button><a href="https://book.squareup.com/appointments/sf9q2x0g6px9gv/location/LSPHA6ACEP0K2/services" target="_blank">Purchase Garden</a></Button>
+                <Button><a href="https://www.facebook.com/groups/1237453543768874/" target="_blank">Book It!</a></Button>
+                </Card.Footer>
+              </Box>
+            </Card.Root>
+          </Box>
+
+          <Box>
+            <Card.Root flexDirection="row" overflow={{ base: "scroll", sm: "hidden" }} maxW="xl" fontFamily={'Fraunces'}>
+              <Image
+                objectFit="cover"
+                maxW="200px"
+                src="https://images-pw.pixieset.com/elementfield/G5465mx/IMG_2459-9414ab67-1000.jpg"
+                alt="Maternity Photo Package"
+              />
+              <Box>
+                <Card.Body>
+                  <Card.Title mb="2">Maternity</Card.Title>
+                  <Card.Description>
+                    Document the joy of expecting. Pricing starts out at $300 for an outdoor photoshoot in the Dayton area.
+                  </Card.Description>
+                  <HStack mt="4">
+                    <Badge>From $300</Badge>
+                    <Badge>You Wont Even Notice Us</Badge>
+                    <Badge>Value</Badge>
+                  </HStack>
+                </Card.Body>
+                <Card.Footer>
+                <Button><a href="https://www.facebook.com/groups/1237453543768874/" target="_blank">Book It!</a></Button>
+                </Card.Footer>
+              </Box>
+            </Card.Root>
+          </Box>
+
+          <Box>
+            <Card.Root flexDirection="row" overflow={{ base: "scroll", sm: "hidden" }} maxW="xl" fontFamily={'Fraunces'}>
+              <Image
+                objectFit="cover"
+                maxW="200px"
+                src="https://images-pw.pixieset.com/elementfield/G5465mx/IMG_7234-Enhanced-NR-7e2b9cbc-1000.jpg"
+                alt="Family Photo Package"
+              />
+              <Box>
+                <Card.Body>
+                  <Card.Title mb="2">Family</Card.Title>
+                  <Card.Description>
+                    As our elders say, time passes by in an instant. One minute you're baby is fresh and new and the next you have a wild, sticky toddler. Preserve those memories today.
+                  </Card.Description>
+                  <HStack mt="4">
+                    <Badge>From $300</Badge>
+                    <Badge>You Wont Even Notice Us</Badge>
+                    <Badge>Value</Badge>
+                  </HStack>
+                </Card.Body>
+                <Card.Footer>
+                <Button><a href="https://www.facebook.com/groups/1237453543768874/" target="_blank">Book It!</a></Button>
                 </Card.Footer>
               </Box>
             </Card.Root>
@@ -330,26 +452,23 @@ const App = () => {
               <Image
                 objectFit="cover"
                 maxW="200px"
-                src="https://photos.batcars.com/images/chapel.jpg"
+                src="https://images-pw.pixieset.com/elementfield/G5465mx/IMG_4744-Enhanced-NR-531c6717-1000.jpg"
                 alt="The Chapel Package"
               />
               <Box>
                 <Card.Body>
-                  <Card.Title mb="2">The Chapel</Card.Title>
+                  <Card.Title mb="2">NB + Baby</Card.Title>
                   <Card.Description>
-                    4 Hours Coverage <br />
-                    All RAW Images <br />
-                    Edited Gallery <br />
-                    Highlight Video <br />
-                    Travel Included
+                    Congratulations on welcoming your new baby to the world! Newborns change daily so don't let those memories fade away. Their little wrinkled feet and hands, the little button noses. That sweet, sweet baby smell. Indoor studio sessions are available.
                   </Card.Description>
                   <HStack mt="4">
+                    <Badge>From $300</Badge>
                     <Badge>Most Popular</Badge>
                     <Badge>Quality</Badge>
                   </HStack>
                 </Card.Body>
                 <Card.Footer>
-                  <Button><a href="https://book.squareup.com/appointments/sf9q2x0g6px9gv/location/LSPHA6ACEP0K2/services" target="_blank">Purchase Chapel</a></Button>
+                <Button><a href="https://www.facebook.com/groups/1237453543768874/" target="_blank">Book It!</a></Button>
                 </Card.Footer>
               </Box>
             </Card.Root>
@@ -360,31 +479,30 @@ const App = () => {
               <Image
                 objectFit="cover"
                 maxW="200px"
-                src="https://photos.batcars.com/images/estate.jpg"
+                src="https://images-pw.pixieset.com/elementfield/G5465mx/IMG_0181-Enhanced-NR-6a6bfbf2-1000.jpg"
                 alt="The Estate Package"
               />
               <Box>
                 <Card.Body>
-                <Card.Title mb="2">The Estate</Card.Title>
+                <Card.Title mb="2">Extended Family</Card.Title>
                   <Card.Description>
-                    4 Hours Coverage <br />
-                    All RAW Images <br />
-                    Edited Gallery <br />
-                    Highlight Video <br />
-                    Travel Included
+                    Getting extended family pictures is a wonderful way to capture and celebrate the bonds that tie your family together. These photos serve as a lasting reminder of shared moments and milestones, preserving the connections between generations.
                   </Card.Description>
                   <HStack mt="4">
+                    <Badge>From $350</Badge>
                     <Badge>Capture Every Moment</Badge>
                     <Badge>Top Tier</Badge>
                   </HStack>
                 </Card.Body>
                 <Card.Footer>
-                  <Button><a href="https://book.squareup.com/appointments/sf9q2x0g6px9gv/location/LSPHA6ACEP0K2/services" target="_blank">Purchase Estate</a></Button>
+                  <Button><a href="https://www.facebook.com/groups/1237453543768874/" target="_blank">Book It!</a></Button>
                 </Card.Footer>
               </Box>
             </Card.Root>
           </Box>
         </SimpleGrid>
+
+
 
       </HStack>
 
