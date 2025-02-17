@@ -136,7 +136,7 @@ const App = () => {
             <Heading fontWeight={"bold"} size="2xl" fontSize={'2.4rem'} fontFamily={'Fraunces'} zIndex={1} >AMY CURLEY PHOTOGRAPHY</Heading> {/*bg={'#fdfaf1'} borderRadius={15} padding={15} */}
             <Text fontSize="lg" >Capturing love stories reminds me that every moment, big or small, has is own beauty.</Text> {/*bg={'#fdfaf1'} borderRadius={5} padding={2} */}
             
-            <DialogRoot>
+            <DialogRoot scrollBehavior="outside" preventScroll={false} placement={"top"}>
               <DialogTrigger asChild>
                 <Button variant="outline" size="xl" margin={95} bg={'#fdfaf1'} fontSize={'2xl'}>
                 <Avatar.Root>
@@ -146,7 +146,7 @@ const App = () => {
                 Hello there!
                 </Button>
               </DialogTrigger>
-              <DialogContent top={95} position={"absolute"} bg={'#fdfaf1'}>
+              <DialogContent  bg={'#fdfaf1'} position={"absolute"}>
                 <DialogHeader>
                   <Avatar.Root>
                     <Avatar.Fallback name="Amy Curley" />
